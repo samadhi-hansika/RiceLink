@@ -9,17 +9,25 @@ if(!isset($_SESSION['user_id']) || $_SESSION['role'] != "admin"){
 
 $res = $conn->query("
 SELECT 
-    u.user_id,
-    u.name,
-    u.email,
-    u.address,
-    COALESCE(paddy_types.name, '-') AS last_paddy,
-    COALESCE(sales.status, 'No Data') AS last_status
+u.user_id,
+u.name,
+u.email,
+u.address,
+(
+ SELECT p.name 
+ FROM sales s 
+ JOIN paddy_types p ON s.paddy_type_id = p.id 
+ WHERE s.user_id = u.user_id 
+ ORDER BY s.id DESC LIMIT 1
+) AS last_paddy,
+(
+ SELECT status 
+ FROM sales s 
+ WHERE s.user_id = u.user_id 
+ ORDER BY s.id DESC LIMIT 1
+) AS last_status
 FROM users u
-LEFT JOIN sales ON u.user_id = sales.user_id
-LEFT JOIN paddy_types ON sales.paddy_type_id = paddy_types.id
 WHERE u.role='farmer'
-GROUP BY u.user_id
 ORDER BY u.user_id DESC
 ");
 ?>

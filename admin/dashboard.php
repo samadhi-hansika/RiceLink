@@ -2,36 +2,34 @@
 session_start();
 include '../config/db.php';
 
-/* ================= AUTH ================= */
 if (!isset($_SESSION['user_id']) || $_SESSION['role'] != "admin") {
     header("Location: ../index.php");
     exit();
 }
 
-/* ================= STATS ================= */
-$totalSales = $conn->query("SELECT COUNT(*) as c FROM sales")->fetch_assoc()['c'];
+/* STATS */
+$totalSales = $conn->query("SELECT COUNT(*) AS c FROM sales")->fetch_assoc()['c'];
+$pending = $conn->query("SELECT COUNT(*) AS c FROM sales WHERE status='Pending'")->fetch_assoc()['c'];
+$approved = $conn->query("SELECT COUNT(*) AS c FROM sales WHERE status='Approved'")->fetch_assoc()['c'];
+$paid = $conn->query("SELECT COUNT(*) AS c FROM sales WHERE status='Paid'")->fetch_assoc()['c'];
 
-$pending = $conn->query("SELECT COUNT(*) as c FROM sales WHERE status='Pending'")->fetch_assoc()['c'];
-$approved = $conn->query("SELECT COUNT(*) as c FROM sales WHERE status='Approved'")->fetch_assoc()['c'];
-$paid = $conn->query("SELECT COUNT(*) as c FROM sales WHERE status='Paid'")->fetch_assoc()['c'];
-
-/* ================= LATEST SALES ================= */
-$query = "
+/* LATEST SALES (FIXED JOIN) */
+$res = $conn->query("
 SELECT 
-    sales.*,
-    users.name AS farmer_name,
-    users.email,
-    paddy_types.name AS paddy_name
+sales.id,
+sales.quantity,
+sales.total,
+sales.status,
+users.name AS farmer_name,
+users.email,
+paddy_types.name AS paddy_name
 FROM sales
 LEFT JOIN users ON sales.user_id = users.user_id
 LEFT JOIN paddy_types ON sales.paddy_type_id = paddy_types.id
 ORDER BY sales.id DESC
 LIMIT 10
-";
-
-$res = $conn->query($query);
+");
 ?>
-
 <!DOCTYPE html>
 <html lang="en">
 <head>

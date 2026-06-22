@@ -7,17 +7,15 @@ if(!isset($_SESSION['user_id']) || $_SESSION['role'] != "admin"){
     exit();
 }
 
-$id = $_GET['id'];
+$id = intval($_GET['id']);
 
-/* Farmer info */
-$user = $conn->query("SELECT * FROM users WHERE user_id='$id'")->fetch_assoc();
+$user = $conn->query("SELECT * FROM users WHERE user_id=$id")->fetch_assoc();
 
-/* Sales */
 $sales = $conn->query("
 SELECT sales.*, paddy_types.name AS paddy
 FROM sales
 LEFT JOIN paddy_types ON sales.paddy_type_id = paddy_types.id
-WHERE sales.user_id='$id'
+WHERE sales.user_id=$id
 ORDER BY sales.id DESC
 ");
 ?>

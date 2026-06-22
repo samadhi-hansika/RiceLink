@@ -9,10 +9,12 @@ if(!isset($_SESSION['user_id']) || $_SESSION['role'] != "admin"){
 }
 
 /* ================= UPDATE PRICE ================= */
-if(isset($_POST['update'])){
+$res = $conn->query("SELECT * FROM paddy_types ORDER BY id ASC");
 
-    $id = $_POST['id'];
-    $price = $_POST['price'];
+    if(isset($_POST['update'])){
+
+    $id = intval($_POST['id']);
+    $price = floatval($_POST['price']);
 
     $stmt = $conn->prepare("UPDATE paddy_types SET price=? WHERE id=?");
     $stmt->bind_param("di", $price, $id);
@@ -21,9 +23,6 @@ if(isset($_POST['update'])){
     header("Location: price_update.php");
     exit();
 }
-
-/* ================= GET DATA ================= */
-$res = $conn->query("SELECT * FROM paddy_types ORDER BY name ASC");
 ?>
 
 <!DOCTYPE html>

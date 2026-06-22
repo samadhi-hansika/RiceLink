@@ -2,32 +2,31 @@
 session_start();
 include '../config/db.php';
 
-if (!isset($_SESSION['user_id'])) {
-    header("Location: ../index.php");
-    exit();
-}
-
 $user = $_SESSION['user_id'];
 
 $type = intval($_POST['type']);
 $qty = floatval($_POST['qty']);
 $address = trim($_POST['address']);
-$address = $_POST['address'];
 
-/* GET PRICE */
-$q = $conn->query("SELECT price FROM paddy_types WHERE id='$type'");
-$data = $q->fetch_assoc();
+/* PRICE */
+$stmt = $conn->prepare("SELECT price FROM paddy_types WHERE id=?");
+$stmt->bind_param("i", $type);
+$stmt->execute();
+$res = $stmt->get_result();
+$data = $res->fetch_assoc();
+
 $price = $data['price'];
-
 $total = $qty * $price;
 
 /* INSERT */
-$conn->query("
+$stmt = $conn->prepare("
 INSERT INTO sales(user_id, paddy_type_id, quantity, price, total, address)
-VALUES('$user','$type','$qty','$price','$total','$address')
+VALUES(?,?,?,?,?,?)
 ");
 
-/* REDIRECT */
+$stmt->bind_param("iiddds", $user, $type, $qty, $price, $total, $address);
+$stmt->execute();
+
 header("Location: my_sales.php");
 exit();
 ?>
