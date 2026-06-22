@@ -1,0 +1,295 @@
+/* ================= GLOBAL ================= */
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:'Segoe UI',sans-serif;
+}
+
+body{
+    background:#f4f7fb;
+}
+
+/* ================= NAVBAR ================= */
+.navbar{
+    width:100%;
+    background:#1e5631;
+    padding:18px 70px;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    position:fixed;
+    top:0;
+    z-index:1000;
+    box-shadow:0 4px 15px rgba(0,0,0,0.08);
+}
+
+.logo{
+    color:white;
+    font-size:28px;
+    font-weight:bold;
+}
+
+/* LINKS */
+.nav-links{
+    display:flex;
+    gap:30px;
+}
+
+.nav-links a{
+    color:white;
+    text-decoration:none;
+    font-size:15px;
+    display:flex;
+    align-items:center;
+    gap:8px;
+    padding:8px 12px;
+    border-radius:8px;
+    transition:0.3s ease;
+}
+
+/* ICON BASE STYLE */
+.nav-links a i{
+    font-size:15px;
+    transition:0.3s ease;
+}
+
+/* ================= ICON COLORS ================= */
+.icon-home{
+    color:#4CAF50;
+}
+
+.icon-paddy{
+    color:#FF9800;
+}
+
+.icon-logout{
+    color:#f44336;
+}
+
+/* ================= HOVER EFFECT ================= */
+.nav-links a:hover{
+    background:#ffffff;
+    color:#1e5631;
+}
+
+/* keep icons slightly themed even on hover */
+.nav-links a:hover .icon-home{
+    color:#2e7d32;
+}
+
+.nav-links a:hover .icon-paddy{
+    color:#ef6c00;
+}
+
+.nav-links a:hover .icon-logout{
+    color:#c62828;
+}
+
+/* ACTIVE LINK (optional but useful) */
+.nav-links a.active{
+    background:rgba(255,255,255,0.15);
+}
+
+/* ================= HERO ================= */
+.hero{
+    min-height:100vh;
+    display:flex;
+    align-items:center;
+    padding:120px 10%;
+    background:linear-gradient(135deg,#eef8f0,#ffffff);
+}
+
+.hero-container{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    width:100%;
+    gap:60px;
+}
+
+.hero-left{
+    flex:1;
+}
+
+.hero-left h1{
+    font-size:55px;
+    color:#1e5631;
+    margin-bottom:20px;
+    line-height:1.2;
+}
+
+.hero-left p{
+    font-size:18px;
+    color:#555;
+    line-height:1.8;
+    max-width:650px;
+}
+
+/* ================= LOGIN CARD ================= */
+.login-card{
+    width:420px;
+    background:white;
+    padding:40px;
+    border-radius:22px;
+    box-shadow:0 15px 45px rgba(0,0,0,0.08);
+}
+
+.login-card h2{
+    text-align:center;
+    margin-bottom:25px;
+    color:#1e5631;
+}
+
+.input-group{
+    margin-bottom:18px;
+}
+
+.input-group input{
+    width:100%;
+    padding:14px;
+    border:1px solid #ddd;
+    border-radius:10px;
+    outline:none;
+    font-size:15px;
+}
+
+.input-group input:focus{
+    border-color:#1e5631;
+}
+
+.login-btn{
+    width:100%;
+    padding:14px;
+    border:none;
+    border-radius:10px;
+    background:#1e5631;
+    color:white;
+    cursor:pointer;
+    font-size:16px;
+}
+
+.login-btn:hover{
+    background:#2f7c3d;
+}
+
+/* ================= REGISTER ================= */
+.register-link{
+    margin-top:20px;
+    text-align:center;
+}
+
+.register-link a{
+    color:#1e5631;
+    font-weight:600;
+    text-decoration:none;
+}
+
+/* ================= ABOUT ================= */
+.about{
+    padding:100px 10%;
+    background:white;
+}
+
+.about-title{
+    text-align:center;
+    font-size:40px;
+    color:#1e5631;
+    margin-bottom:20px;
+}
+
+.about-desc{
+    text-align:center;
+    max-width:900px;
+    margin:auto;
+    color:#666;
+    line-height:1.9;
+    font-size:17px;
+}
+
+.about-grid{
+    margin-top:60px;
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
+    gap:30px;
+}
+
+.about-card{
+    background:#f8faf8;
+    padding:35px;
+    border-radius:18px;
+    text-align:center;
+    transition:.3s;
+}
+
+.about-card:hover{
+    transform:translateY(-8px);
+    box-shadow:0 12px 25px rgba(0,0,0,0.06);
+}
+
+.about-card h3{
+    margin:15px 0;
+    color:#1e5631;
+}
+
+/* ================= MODAL ================= */
+.modal{
+    display:none;
+    position:fixed;
+    top:0;
+    left:0;
+    width:100%;
+    height:100%;
+    background:rgba(0,0,0,0.55);
+    justify-content:center;
+    align-items:center;
+    z-index:9999;
+}
+
+.modal-box{
+    background:white;
+    width:420px;
+    padding:35px;
+    border-radius:20px;
+    position:relative;
+}
+
+.close{
+    position:absolute;
+    right:20px;
+    top:15px;
+    cursor:pointer;
+    font-size:28px;
+}
+
+.modal-box h2{
+    text-align:center;
+    margin-bottom:25px;
+    color:#1e5631;
+}
+
+/* ================= MOBILE ================= */
+@media(max-width:900px){
+
+    .hero-container{
+        flex-direction:column;
+    }
+
+    .login-card{
+        width:100%;
+    }
+
+    .hero-left h1{
+        font-size:38px;
+    }
+
+    .navbar{
+        padding:15px 25px;
+    }
+
+    .nav-links{
+        gap:15px;
+        flex-wrap:wrap;
+        justify-content:center;
+    }
+}
