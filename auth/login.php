@@ -2,10 +2,10 @@
 session_start();
 include '../config/db.php';
 
-define('BASE_URL', 'http://localhost/ricelink/');
+define('BASE_URL', '/RiceLink/RiceLink/');
 
 if ($_SERVER["REQUEST_METHOD"] != "POST") {
-    header("Location: ".BASE_URL."includes/index.php");
+    header("Location: ".BASE_URL."index.php");
     exit();
 }
 
@@ -17,7 +17,7 @@ if (!isset($_SESSION['attempt'])) {
 }
 
 if ($_SESSION['attempt'] >= 15) {
-    echo "<script>alert('Too many attempts. Try again after 5 minutes.');window.location='".BASE_URL."includes/index.php';</script>";
+    echo "<script>alert('Too many attempts. Try again after 5 minutes.');window.location='".BASE_URL."index.php';</script>";
     exit();
 }
 
@@ -47,13 +47,13 @@ if ($row = $result->fetch_assoc()) {
 
     } else {
         $_SESSION['attempt']++;
-        echo "<script>alert('Wrong password!');window.location='".BASE_URL."includes/index.php';</script>";
+        echo "<script>alert('Wrong password!');window.location='".BASE_URL."index.php';</script>";
         exit();
     }
 
 } else {
     $_SESSION['attempt']++;
-    echo "<script>alert('User not found!');window.location='".BASE_URL."includes/index.php';</script>";
+    echo "<script>alert('User not found!');window.location='".BASE_URL."index.php';</script>";
     exit();
 }
 

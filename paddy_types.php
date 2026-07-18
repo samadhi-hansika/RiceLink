@@ -10,7 +10,7 @@ $res = $conn->query("SELECT name, price FROM paddy_types;");
 <meta charset="UTF-8">
 <title>Current Paddy Prices - RiceLink</title>
 
-<link rel="stylesheet" href="assets/style.css">
+<link rel="stylesheet" href="/RiceLink/RiceLink/assets/style.css">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 
 <style>
@@ -114,11 +114,11 @@ h1{
     <div class="logo">🌾 RiceLink</div>
 
     <div class="nav-links">
-        <a href="index.php"><i class="fa fa-home"></i> Home</a>
-        <a href="paddy_types.php" class="active"><i class="fa fa-seedling"></i> Paddy Prices</a>
-        <a href="../index.php#about"><i class="fa fa-circle-info"></i> About</a>
-        <a href="../index.php#services"><i class="fa fa-briefcase"></i> Services</a>
-        <a href="../index.php#contact"><i class="fa fa-phone"></i> Contact</a>
+        <a href="/RiceLink/RiceLink/index.php"><i class="fa fa-home"></i> Home</a>
+        <a href="/RiceLink/RiceLink/paddy_types.php" class="active"><i class="fa fa-seedling"></i> Paddy Prices</a>
+        <a href="/RiceLink/RiceLink/index.php#about"><i class="fa fa-circle-info"></i> About</a>
+        <a href="/RiceLink/RiceLink/index.php#services"><i class="fa fa-briefcase"></i> Services</a>
+        <a href="/RiceLink/RiceLink/index.php#contact"><i class="fa fa-phone"></i> Contact</a>
     </div>
 </nav>
 
