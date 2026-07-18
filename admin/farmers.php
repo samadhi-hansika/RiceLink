@@ -12,7 +12,12 @@ SELECT
 u.user_id,
 u.name,
 u.email,
-u.address,
+(
+ SELECT s.address 
+ FROM sales s 
+ WHERE s.user_id = u.user_id 
+ ORDER BY s.id DESC LIMIT 1
+) AS last_address,
 (
  SELECT p.name 
  FROM sales s 
@@ -145,17 +150,12 @@ h2{
     <div class="logo">🌾 RiceLink Admin</div>
 
     <div class="nav-links">
-        <a href="../index.php">
-            <i class="fa-solid fa-house icon-home"></i> Home
-        </a>
+        
         <a href="dashboard.php">
             <i class="fa-solid fa-chart-line icon-chart"></i> Dashboard
         </a>
         <a href="farmers.php" class="active">
             <i class="fa-solid fa-users icon-users"></i> Farmers
-        </a>
-        <a href="sales.php">
-            <i class="fa-solid fa-chart-line icon-sales"></i> Sales
         </a>
         <a href="price_update.php">
             <i class="fa-solid fa-money-bill icon-price"></i> Prices
@@ -191,7 +191,7 @@ h2{
     <td><?= $r['user_id'] ?></td>
     <td><?= $r['name'] ?></td>
     <td><?= $r['email'] ?></td>
-    <td><?= $r['address'] ?? '-' ?></td>
+    <td><?= $r['last_address'] ?? '-' ?></td>
     <td><?= $r['last_paddy'] ?></td>
 
     <td>

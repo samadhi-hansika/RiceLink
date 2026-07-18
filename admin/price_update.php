@@ -207,17 +207,12 @@ button:hover{
     <div class="logo">🌾 RiceLink Admin</div>
 
     <div class="nav-links">
-        <a href="../index.php">
-            <i class="fa-solid fa-house icon-home"></i> Home
-        </a>
+        
         <a href="dashboard.php">
             <i class="fa-solid fa-chart-line icon-chart"></i> Dashboard
         </a>
         <a href="farmers.php">
             <i class="fa-solid fa-users icon-users"></i> Farmers
-        </a>
-        <a href="sales.php">
-            <i class="fa-solid fa-chart-line icon-sales"></i> Sales
         </a>
         <a href="price_update.php" class="active">
             <i class="fa-solid fa-money-bill icon-price"></i> Prices

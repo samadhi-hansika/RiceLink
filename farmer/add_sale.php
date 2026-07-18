@@ -106,8 +106,8 @@ button:hover{
         <a href="dashboard.php">
             <i class="fa-solid fa-chart-line icon-chart"></i> Dashboard
         </a>
-        <a href="add_sale.php">➕ Add Sale</a>
-        <a href="my_sales.php" class="active">📄 My Sales</a>
+        <a href="add_sale.php" class="active">➕ Add Sale</a>
+        <a href="my_sales.php" >📄 My Sales</a>
         <a href="../auth/logout.php">🚪 Logout</a>
     </div>
 </div>
