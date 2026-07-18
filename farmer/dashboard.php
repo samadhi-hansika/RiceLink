@@ -131,9 +131,6 @@ button:hover{
     <div class="logo">🌾 RiceLink - Farmer</div>
 
     <div class="nav-links"> 
-        <a href="../index.php">
-            <i class="fa-solid fa-house icon-home"></i> Home
-        </a>
 
         <a href="dashboard.php" class="active">
             <i class="fa-solid fa-chart-line icon-chart"></i> Dashboard

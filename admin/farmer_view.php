@@ -11,6 +11,9 @@ $id = intval($_GET['id']);
 
 $user = $conn->query("SELECT * FROM users WHERE user_id=$id")->fetch_assoc();
 
+$latestAddressRow = $conn->query("SELECT address FROM sales WHERE user_id=$id ORDER BY id DESC LIMIT 1")->fetch_assoc();
+$latestSaleAddress = $latestAddressRow['address'] ?? null;
+
 $sales = $conn->query("
 SELECT sales.*, paddy_types.name AS paddy
 FROM sales
@@ -86,6 +89,109 @@ ORDER BY sales.id DESC
     color:#f44336;
 }
 
+.btn{
+    display:inline-flex;
+    align-items:center;
+    justify-content:center;
+    padding:10px 16px;
+    border-radius:999px;
+    background:#1e5631;
+    color:#ffffff;
+    text-decoration:none;
+    font-weight:700;
+    transition:transform 0.18s ease, background 0.18s ease;
+}
+
+.btn:hover{
+    transform:translateY(-1px);
+    background:#295c35;
+}
+
+.btn-secondary{
+    background:#6c757d;
+}
+
+.btn-secondary:hover{
+    background:#5a6268;
+}
+
+/* ================= SALES TABLE ================= */
+table.sales-table {
+    width:100%;
+    border-collapse:collapse;
+    table-layout:fixed;
+    margin-top:16px;
+}
+
+table.sales-table th,
+table.sales-table td {
+    padding:12px 14px;
+    text-align:left;
+    border-bottom:1px solid #e9ecef;
+    vertical-align:middle;
+}
+
+table.sales-table th {
+    background:#f8f9fb;
+    color:#25313c;
+    font-weight:700;
+    letter-spacing:0.02em;
+}
+
+table.sales-table td {
+    word-break:break-word;
+}
+
+table.sales-table th:nth-child(1),
+table.sales-table td:nth-child(1) {
+    width:42%;
+}
+
+table.sales-table th:nth-child(2),
+table.sales-table td:nth-child(2) {
+    width:18%;
+}
+
+table.sales-table th:nth-child(3),
+table.sales-table td:nth-child(3) {
+    width:20%;
+}
+
+table.sales-table th:nth-child(4),
+table.sales-table td:nth-child(4) {
+    width:20%;
+}
+
+@media (max-width: 760px) {
+    .container {
+        margin:80px 16px;
+    }
+    table.sales-table,
+    thead,
+    tbody,
+    th,
+    td,
+    tr {
+        display:block;
+    }
+    table.sales-table th {
+        display:none;
+    }
+    table.sales-table td {
+        padding:12px 10px;
+        border:none;
+        border-bottom:1px solid #e9ecef;
+        position:relative;
+    }
+    table.sales-table td:before {
+        content:attr(data-label);
+        display:block;
+        font-weight:600;
+        margin-bottom:6px;
+        color:#455a64;
+    }
+}
+
 </style>
 
 </head>
@@ -96,9 +202,7 @@ ORDER BY sales.id DESC
     <div class="logo">🌾 RiceLink Admin</div>
 
     <div class="nav-links">
-        <a href="../index.php">
-            <i class="fa-solid fa-house icon-home"></i> Home
-        </a>
+        
         <a href="dashboard.php">
             <i class="fa-solid fa-chart-line icon-chart"></i> Dashboard
         </a>
@@ -123,11 +227,14 @@ ORDER BY sales.id DESC
 <!-- FARMER INFO -->
 <div class="card">
 
-<h2>👨‍🌾 Farmer Details</h2>
+<div style="display:flex; justify-content:space-between; align-items:center; gap:12px;">
+    <h2>👨‍🌾 Farmer Details</h2>
+    <a href="farmers.php" class="btn btn-secondary">← Back</a>
+</div>
 
 <p><b>Name:</b> <?= $user['name'] ?></p>
 <p><b>Email:</b> <?= $user['email'] ?></p>
-<p><b>Address:</b> <?= !empty($user['address']) ? $user['address'] : 'Not Added' ?></p>
+<p><b>Address:</b> <?= !empty($user['address']) ? $user['address'] : (!empty($latestSaleAddress) ? $latestSaleAddress : 'Not Added') ?></p>
 
 </div>
 
@@ -136,26 +243,25 @@ ORDER BY sales.id DESC
 
 <h2>📦 Harvest Records</h2>
 
-<table width="100%">
-
-<tr>
-    <th>🌾 Paddy</th>
-    <th>⚖️ Qty</th>
-    <th>💰 Total</th>
-    <th>📌 Status</th>
-</tr>
-
-<?php while($s = $sales->fetch_assoc()): ?>
-
-<tr>
-    <td><?= $s['paddy'] ?></td>
-    <td><?= $s['quantity'] ?> kg</td>
-    <td>Rs. <?= $s['total'] ?></td>
-    <td><span class="badge"><?= $s['status'] ?></span></td>
-</tr>
-
-<?php endwhile; ?>
-
+<table class="sales-table">
+    <thead>
+        <tr>
+            <th>🌾 Paddy</th>
+            <th>⚖️ Qty</th>
+            <th>💰 Total</th>
+            <th>📌 Status</th>
+        </tr>
+    </thead>
+    <tbody>
+        <?php while($s = $sales->fetch_assoc()): ?>
+        <tr>
+            <td data-label="Paddy"><?= $s['paddy'] ?></td>
+            <td data-label="Qty"><?= $s['quantity'] ?> kg</td>
+            <td data-label="Total">Rs. <?= $s['total'] ?></td>
+            <td data-label="Status"><span class="badge"><?= $s['status'] ?></span></td>
+        </tr>
+        <?php endwhile; ?>
+    </tbody>
 </table>
 
 </div>
